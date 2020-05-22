@@ -2,38 +2,79 @@
 
 namespace App;
 
+use App\Notifications\Auth\EmailVerificationNotification;
+use App\Notifications\Auth\ResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+/**
+ * Class User
+ * @package App
+ */
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable;
+    use HasRoles, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'avatar', 'password',
     ];
-
     /**
-     * The attributes that should be hidden for arrays.
-     *
      * @var array
      */
     protected $hidden = [
         'password', 'remember_token',
     ];
-
     /**
-     * The attributes that should be cast to native types.
-     *
      * @var array
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Notificação personalizada (traduzida) para verificação de cadastro.
+     */
+    public function sendEmailVerificationNotification(): void
+    {
+        $this->notify(new EmailVerificationNotification());
+    }
+
+    /**
+     * Notificação personalizada (traduzida) para recuperação de senha.
+     *
+     * @param string $token
+     */
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
+
+    /**
+     * Mutator: Retorna o primeiro nome do usuário em formato Camel Case.
+     *
+     * @param $value
+     * @return string
+     */
+    public function getfirstNameAttribute($value): string
+    {
+        $firstName = collect(explode(' ', $this->name))->first();
+        return Str::ucfirst(Str::lower($firstName));
+    }
+
+    /**
+     * Mutator: Retorna o link da imagem de avatar.
+     *
+     * @return string
+     */
+    public function getAvatarAttribute($value): string
+    {
+        return url(Storage::url($value));
+    }
 }

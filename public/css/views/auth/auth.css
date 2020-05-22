@@ -1,0 +1,12 @@
+.div-center {
+  background-color: #fff;
+  width: 400px;
+  padding: 50px 50px 30px;
+}
+
+@media (max-width: 575.98px) {
+  .div-center {
+    width: auto;
+    padding: 30px 30px 10px;
+  }
+}

@@ -30,7 +30,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Route::resourceVerbs([
+            'create' => 'cadastrar',
+            'edit' => 'editar',
+        ]);
 
         parent::boot();
     }
