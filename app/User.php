@@ -67,14 +67,4 @@ class User extends Authenticatable implements MustVerifyEmail
         $firstName = collect(explode(' ', $this->name))->first();
         return Str::ucfirst(Str::lower($firstName));
     }
-
-    /**
-     * Mutator: Retorna o link da imagem de avatar.
-     *
-     * @return string
-     */
-    public function getAvatarAttribute($value): string
-    {
-        return url(Storage::url($value));
-    }
 }

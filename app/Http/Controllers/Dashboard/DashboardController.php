@@ -1,10 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Support\Renderable;
 
-class HomeController extends Controller
+/**
+ * Class DashboardController
+ * @package App\Http\Controllers\Dashboard
+ */
+class DashboardController extends Controller
 {
     /**
      * Create a new controller instance.

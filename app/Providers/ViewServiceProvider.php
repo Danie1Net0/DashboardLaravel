@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,7 +31,7 @@ class ViewServiceProvider extends ServiceProvider
             $user = Auth::user();
             return $view->with([
                 'sidebarItems' => config('sidebar'),
-                'avatar' => $user->avatar,
+                'avatar' => url(Storage::url($user->avatar)),
                 'userName' => $user->firstName
             ]);
         });

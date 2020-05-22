@@ -140,7 +140,7 @@ class UserService implements UserServiceInterface
     }
 
 
-    public function updatePassword(object $data, int $id): User
+    public function updatePassword(array $data, int $id): User
     {
         return DB::transaction(function () use ($data, $id) {
             $user = $this->userRepository->findById($id);

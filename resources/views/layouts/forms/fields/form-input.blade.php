@@ -11,7 +11,7 @@
          name="{{ $name }}"
          placeholder="{{ $placeholder ?? $label ?? null }}"
          type="{{ $type ?? 'text' }}"
-         value="{{ isPassword($name, $notRemember ?? null) ? null : old(getName($name)) ?? $value ?? null }}"
+         value="{{ isPassword($type ?? 'text', $name, $notRemember ?? null) ? null : old(getName($name)) ?? $value ?? null }}"
          {{ isset($readonly) ? 'readonly' : null }}>
 
   @formError(['name' => getName($name), 'cols' => $validationCols ?? null])

@@ -1,5 +1,5 @@
 <header class="app-header">
-  <a class="app-header__logo" href="{{ route('home') }}">Céos</a>
+  <a class="app-header__logo" href="{{ route('home') }}">{{ config('app.name') }}</a>
   <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
   <ul class="app-nav">
     <li class="dropdown">
@@ -9,12 +9,12 @@
       </a>
       <ul class="dropdown-menu settings-menu dropdown-menu-right">
         <li>
-          <a class="dropdown-item" href="{{ route('home') }}">
+          <a class="dropdown-item" href="{{ route('profile.edit') }}">
             <i class="fa fa-user fa-lg"></i> Minha Conta
           </a>
         </li>
         <li>
-          <a class="dropdown-item" href="{{ route('home') }}">
+          <a class="dropdown-item" href="{{ route('password.edit') }}">
             <i class="fa fa-lock fa-lg"></i> Trocar Senha
           </a>
         </li>

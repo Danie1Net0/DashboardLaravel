@@ -25,11 +25,11 @@ interface UserServiceInterface extends BaseServiceInterface
     /**
      * Atualiza senha do usuário.
      *
-     * @param object $data
+     * @param array $data
      * @param int $id
      * @return User
      */
-    public function updatePassword(object $data, int $id): User;
+    public function updatePassword(array $data, int $id): User;
 
     /**
      * Envia verificação de cadastro por e-mail.

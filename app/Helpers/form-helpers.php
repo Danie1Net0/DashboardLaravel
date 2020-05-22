@@ -41,10 +41,11 @@ function getId(string $name): string {
 /**
  * Verifica se o campo é do tipo 'password'.
  *
- * @param $name
- * @param $notRemember
+ * @param string $type
+ * @param string $name
+ * @param bool $notRemember
  * @return bool
  */
-function isPassword($name, $notRemember = null): bool {
-    return $name === 'password' || $name === 'password_confirmation' || isset($notRemember);
+function isPassword(string $type, string $name, bool $notRemember = null): bool {
+    return $type === 'password' || $name === 'password' || $name === 'password_confirmation' || isset($notRemember);
 }
