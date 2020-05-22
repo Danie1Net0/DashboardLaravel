@@ -79,13 +79,16 @@ class UserService implements UserServiceInterface
                 'avatar' => 'public/user_avatar/default.png',
             ]);
 
-            if (isset($data['roles'])) {
-                $user->assignRole($data['roles']);
-                collect($data['roles'])->map(fn ($item, $key) =>
+            if (isset($data['role'])) {
+                $user->assignRole($data['role']);
+                collect($data['role'])->map(fn ($item, $key) =>
                 $user->givePermissionTo(Role::findByName($item)->getPermissionNames()));
             } else {
                 $user->assignRole('user');
             }
+
+            if (isset($data['send_verification']) && $data['send_verification'] == true)
+                $user->notify(new EmailVerificationNotification());
 
             return $user;
         });
@@ -109,10 +112,11 @@ class UserService implements UserServiceInterface
                 'name' => $data['name'] ?? $user->name,
                 'email' => $data['email'] ?? $user->email,
                 'avatar' => $pathAvatar ?? $user->avatar,
+                'active' => $data['active'] ?? $user->active
             ]);
 
-            if (isset($data['roles']))
-                $user->syncRoles($data['roles']);
+            if (isset($data['role']))
+                $user->syncRoles($data['role']);
 
             return $user;
         });
@@ -139,7 +143,9 @@ class UserService implements UserServiceInterface
         return Storage::put('public/user_avatar', $newAvatar);
     }
 
-
+    /**
+     * @inheritDoc
+     */
     public function updatePassword(array $data, int $id): User
     {
         return DB::transaction(function () use ($data, $id) {
@@ -148,13 +154,5 @@ class UserService implements UserServiceInterface
 
             return $user;
         });
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function sendVerification(Model $user): void
-    {
-        $user->notify(new EmailVerificationNotification());
     }
 }

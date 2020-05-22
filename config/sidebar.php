@@ -32,12 +32,12 @@ return [
             'title' => 'Usuários',
             'role' => 'admin',
             'permission' => 'list-users',
-            'icon' => 'fa fa-users-cog',
+            'icon' => 'fas fa-users-cog',
             'subitems' => [
                 [
                     'title' => 'Listar',
                     'icon' => 'fas fa-stream',
-                    'route' => 'home',
+                    'route' => 'usuarios.index',
                 ]
             ]
         ],

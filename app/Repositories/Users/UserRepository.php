@@ -6,6 +6,7 @@ use App\Repositories\Users\Interfaces\UserRepositoryInterface;
 use App\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class UserRepository
@@ -27,14 +28,14 @@ class UserRepository implements UserRepositoryInterface
     public function filter(array $params, int $paginate = null): LengthAwarePaginator
     {
         $query = User::query();
+        $query->where('id', '<>', Auth::id());
 
-        if (isset($params['name']))
-            $query->orWhere('name', 'LIKE', "%{$params['name']}%");
+        if (isset($params['search'])) {
+            $query->where('name', 'LIKE', "%{$params['search']}%");
+            $query->orWhere('email', 'LIKE', "%{$params['search']}%");
+        }
 
-        if (isset($params['email']))
-            $query->orWhere('email', 'LIKE', "%{$params['email']}%");
-
-        return $query->paginate($paginate ?? 10);
+        return $query->paginate($paginate ?? 5);
     }
 
     /**
@@ -45,7 +46,7 @@ class UserRepository implements UserRepositoryInterface
         $query = User::query();
         $where && $orWhere ? $query->where($where)->orWhere($orWhere)->get() : $query->where($where)->get();
 
-        return $query->paginate($paginate ?? 10);
+        return $query->paginate($paginate ?? 5);
     }
 
     /**

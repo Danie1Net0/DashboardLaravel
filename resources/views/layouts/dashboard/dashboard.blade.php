@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-  @include('layouts.dashboard.nav')
+  @include('layouts.dashboard.parts.nav')
 
-  @include('layouts.dashboard.sidebar')
+  @include('layouts.dashboard.parts.sidebar')
 
   <div class="app-content">
     <div class="app-title">
       <div>
         <h1>
-          <i class="{{ $iconClass ?? 'fas fa-dashboard' }} mr-2"></i> {{ $pageTitle ?? 'Dashboard' }}
+          <i class="{{ $iconClass ?? 'fa fa-dashboard' }} mr-2"></i> {{ $pageTitle ?? 'Dashboard' }}
         </h1>
       </div>
     </div>

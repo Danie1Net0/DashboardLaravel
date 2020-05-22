@@ -11,11 +11,7 @@
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vali-admin@3.0.0/docs/css/main.min.css">
-  <style>
-    a:hover, btn-link {
-      text-decoration: none !important;
-    }
-  </style>
+  <link rel="stylesheet" href="{{ asset('css/views/dashboard/dashboard.css') }}">
 
   @stack('styles')
 </head>
@@ -39,6 +35,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vali-admin@3.0.0/docs/js/plugins/select2.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vali-admin@3.0.0/docs/js/plugins/pace.min.js"></script>
+  <script src="{{ asset('js/views/dashboard/dashboard.js') }}"></script>
   <script>
     $('.login-content [data-toggle="flip"]').click(function () {
       $('.login-box').toggleClass('flipped');

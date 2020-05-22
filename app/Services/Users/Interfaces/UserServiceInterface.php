@@ -4,7 +4,6 @@ namespace App\Services\Users\Interfaces;
 
 use App\Services\BaseServiceInterface;
 use App\User;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Interface UsuarioServiceInterface
@@ -30,11 +29,4 @@ interface UserServiceInterface extends BaseServiceInterface
      * @return User
      */
     public function updatePassword(array $data, int $id): User;
-
-    /**
-     * Envia verificação de cadastro por e-mail.
-     *
-     * @param Model $user
-     */
-    public function sendVerification(Model $user): void;
 }

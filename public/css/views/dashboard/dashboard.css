@@ -1,0 +1,34 @@
+a:hover, .btn-link { text-decoration: none !important }
+
+.is-invalid .select2-selection { border-color: #DC3545 !important }
+
+.select2-container { width: 100% !important }
+
+.w-10 { width: 10% !important }
+
+.w-20 { width: 20% !important }
+
+.w-30 { width: 30% !important }
+
+.w-40 { width: 40% !important }
+
+.app-paginate { max-height: 33px }
+
+#paginate { height: 33px }
+
+.app-search__input { border: 1px solid #CED4DA }
+
+.app-search__button {
+  top: 0;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .app-search { display: block }
+
+  .app-search, input { width: 100% }
+}
+
+@media (min-height: 1024px) {
+  .app-search, input { width: initial }
+}

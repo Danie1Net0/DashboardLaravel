@@ -8,6 +8,8 @@
   <input autofocus
          class="form-control @error(getName($name)) is-invalid @enderror {{ $controlClasses ?? null }}"
          id="{{ getId($name) }}"
+         max="{{ $max ?? null }}"
+         min="{{ $min ?? null }}"
          name="{{ $name }}"
          placeholder="{{ $placeholder ?? $label ?? null }}"
          type="{{ $type ?? 'text' }}"

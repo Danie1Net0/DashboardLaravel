@@ -4,6 +4,7 @@ namespace App\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 /**
  * Class UpdateUserRequest
@@ -18,7 +19,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check() && Auth::user()->hasPermissionTo('edit-profile');
+        return Auth::check() && Auth::user()->hasAnyPermission(['edit-profile', 'edit-user']);
     }
 
     /**
@@ -30,7 +31,8 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'avatar' => ['nullable', 'file', 'max:3072', 'image']
+            'avatar' => ['nullable', 'file', 'max:3072', 'image'],
+            'active' => ['nullable', 'boolean']
         ];
     }
 }

@@ -23,7 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'avatar', 'password',
+        'name', 'email', 'avatar', 'active', 'password',
     ];
     /**
      * @var array
@@ -62,9 +62,30 @@ class User extends Authenticatable implements MustVerifyEmail
      * @param $value
      * @return string
      */
-    public function getfirstNameAttribute($value): string
+    public function getFirstNameAttribute($value): string
     {
         $firstName = collect(explode(' ', $this->name))->first();
         return Str::ucfirst(Str::lower($firstName));
+    }
+
+    /**
+     * Mutator: Retorna o nome da função do usuário.
+     *
+     * @param $value
+     * @return string
+     */
+    public function getRoleNameAttribute($value): string
+    {
+        return $this->roles->first()->name;
+    }
+
+    /**
+     * Mutator: Retorna o nome amigável da função do usuário.
+     *
+     * @param $value
+     * @return string
+     */
+    public function getFriendlyRoleNameAttribute($value): string {
+        return trans("role-names.{$this->roleName}");
     }
 }

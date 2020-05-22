@@ -38,3 +38,8 @@ Route::namespace('Dashboard\Users')->prefix('/dados-pessoais')->group(function (
     Route::get('/senha', 'ProfileController@editPassword')->name('password.edit');
     Route::put('/senha/{id}', 'ProfileController@updatePassword')->name('password.update');
 });
+
+/**
+ * Rotas de gerenciamento de usuários.
+ */
+Route::resource('/usuarios', 'Dashboard\Users\UserController');

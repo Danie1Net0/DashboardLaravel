@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class ViewServiceProvider
+ * @package App\Providers
+ */
 class ViewServiceProvider extends ServiceProvider
 {
     /**
@@ -27,7 +31,7 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('layouts.dashboard.sidebar', function ($view) {
+        View::composer('layouts.dashboard.parts.sidebar', function ($view) {
             $user = Auth::user();
             return $view->with([
                 'sidebarItems' => config('sidebar'),
@@ -36,7 +40,7 @@ class ViewServiceProvider extends ServiceProvider
             ]);
         });
 
-        View::composer('layouts.dashboard.nav', function ($view) {
+        View::composer('layouts.dashboard.parts.nav', function ($view) {
             $usuario = Auth::user();
             return $view->with('userName', $usuario->firstName);
         });

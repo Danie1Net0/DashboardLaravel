@@ -49,3 +49,16 @@ function getId(string $name): string {
 function isPassword(string $type, string $name, bool $notRemember = null): bool {
     return $type === 'password' || $name === 'password' || $name === 'password_confirmation' || isset($notRemember);
 }
+
+/**
+ * Retorna opções "Ativo" ou "Inativo" para seleção de status.
+ *
+ * @return array
+ */
+function statusOptions(): array
+{
+    return [
+        ['value' => '1', 'content' => 'Ativo'],
+        ['value' => '0', 'content' => 'Inativo'],
+    ];
+}
