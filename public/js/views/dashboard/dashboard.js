@@ -10,7 +10,7 @@ function deleteResource(resourceName = 'Recurso') {
     });
   };
 
-  $('form').on('submit', onSubmit)
+  $('#form-delete').on('submit', onSubmit)
 }
 
 function confirmation(resourceName) {

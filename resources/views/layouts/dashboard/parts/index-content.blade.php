@@ -6,9 +6,7 @@
       <form action="{{ route("{$resourceRouteName}.index") }}" class="float-left">
         <input name="search" hidden>
         <input name="paginate" hidden>
-        <button class="btn btn-outline-info">
-          <i class="fas fa-sync-alt"></i>
-        </button>
+        @button(['type' => 'outline-info', 'icon' => 'fas fa-sync-alt', 'typeButton' => 'submit'])
       </form>
 
       @if(isset($newResourceName))
