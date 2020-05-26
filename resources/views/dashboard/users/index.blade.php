@@ -1,9 +1,10 @@
 @extends('layouts.dashboard.parts.index-content', [
-    'iconClass' => 'fas fa-users-cog',
-    'pageTitle' => 'Usuários',
-    'resourceRouteName' => 'usuarios',
-    'newResourceName' => 'Usuário',
-    'resourceName' => 'Usuário'
+  'iconClass' => 'fas fa-users-cog',
+  'pageTitle' => 'Usuários',
+  'resourceRouteName' => 'usuarios',
+  'newResourceName' => 'Usuário',
+  'resourceName' => 'Usuário',
+  'resources' => $users
 ])
 
 @section('index-content')
@@ -12,9 +13,9 @@
       <tr>
         <th class="w-25">Nome</th>
         <th class="w-25">E-mail</th>
-        <th class="w-10">Função</th>
-        <th class="w-10">Status</th>
-        <th class="w-30">Ações</th>
+        <th class="w-20">Função</th>
+        <th class="w-20">Status</th>
+        <th class="w-10">Ações</th>
       </tr>
     </thead>
 
@@ -28,7 +29,8 @@
             @include('layouts.dashboard.parts.status-column', ['resource' => $user])
           </td>
           <td>
-            @include('layouts.dashboard.parts.action-buttons', ['resourceName' => 'usuarios', 'resource' => $user])
+            @button(['type' => 'primary', 'icon' => 'fas fa-edit', 'text' => 'Editar', 'typeButton' => 'button',
+            'route' => ['usuarios.edit', $user->id]])
           </td>
         </tr>
       @empty

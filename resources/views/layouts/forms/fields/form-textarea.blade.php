@@ -8,9 +8,7 @@
             id="{{ getId($name) }}"
             name="{{ $name }}"
             placeholder="{{ $placeholder ?? $label }}"
-            {{ isset($readonly) ? 'readonly' : null }}>
-            {{ old(getName($name)) ?? $value ?? null }}
-  </textarea>
+            {{ isset($readonly) ? 'readonly' : null }}>{{ old(getName($name)) ?? $value ?? '' }}</textarea>
 
   @formError(['name' => getName($name), 'cols' => $validationCols ?? null])
 </div>

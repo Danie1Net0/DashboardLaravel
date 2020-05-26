@@ -141,6 +141,7 @@ return [
     */
 
     'attributes' => [
+        'active'                => 'Ativo',
         'address'               => 'endereço',
         'age'                   => 'idade',
         'body'                  => 'conteúdo',
@@ -153,6 +154,7 @@ return [
         'first_name'            => 'primeiro nome',
         'gender'                => 'gênero',
         'hour'                  => 'hora',
+        'inactive'              => 'Inativo',
         'last_name'             => 'sobrenome',
         'message'               => 'mensagem',
         'minute'                => 'minuto',

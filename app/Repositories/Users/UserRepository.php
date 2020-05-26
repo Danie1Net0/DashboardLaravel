@@ -5,8 +5,10 @@ namespace App\Repositories\Users;
 use App\Repositories\Users\Interfaces\UserRepositoryInterface;
 use App\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 /**
  * Class UserRepository
@@ -31,8 +33,19 @@ class UserRepository implements UserRepositoryInterface
         $query->where('id', '<>', Auth::id());
 
         if (isset($params['search'])) {
-            $query->where('name', 'LIKE', "%{$params['search']}%");
-            $query->orWhere('email', 'LIKE', "%{$params['search']}%");
+            $query->where(function (Builder $query) use ($params) {
+                $query->orWhere('name', 'LIKE', "%{$params['search']}%");
+                $query->orWhere('email', 'LIKE', "%{$params['search']}%");
+
+                if (strcasecmp($params['search'], 'Ativo') == 0 || strcasecmp($params['search'], 'Inativo') == 0)
+                    $query->orWhere('active', strcasecmp($params['search'], 'Ativo') == 0);
+
+                if (strcasecmp($params['search'], 'Administrador') == 0 || strcasecmp($params['search'], 'Usuário') == 0)
+                    $query->orWhereHas('roles', function (Builder $query) use ($params) {
+                        $roleName = array_search(Str::ucfirst($params['search']), trans("role-names"));
+                        $query->where('name', $roleName);
+                    });
+            });
         }
 
         return $query->paginate($paginate ?? 5);

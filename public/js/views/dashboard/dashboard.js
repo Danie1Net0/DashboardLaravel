@@ -1,3 +1,7 @@
+$(document).ready(function () {
+  $('#active').select2({  minimumResultsForSearch: Infinity });
+});
+
 function deleteResource(resourceName = 'Recurso') {
   const onSubmit = function (event) {
     event.preventDefault();

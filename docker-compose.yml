@@ -15,7 +15,7 @@ services:
       - db
 
   db:
-    image: mysql:5.7
+    image: mariadb:10.1
     container_name: laravel_db
     restart: always
     volumes:
