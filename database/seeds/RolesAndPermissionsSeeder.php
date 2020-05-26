@@ -15,12 +15,13 @@ class RolesAndPermissionsSeeder extends Seeder
     public function run()
     {
         $rolesAndPermissions = config('access.roles_and_permissions');
+        $roles = config('access.roles');
+        $permissions = config('access.permissions');
 
-        DB::transaction(function () use ($rolesAndPermissions) {
+        DB::transaction(function () use ($rolesAndPermissions, $roles, $permissions) {
             foreach (Role::all() as $role) {
-                foreach ($role->permissions as $permission) {
+                foreach ($role->permissions as $permission)
                     $permission->delete();
-                }
 
                 $role->delete();
             }
@@ -29,15 +30,23 @@ class RolesAndPermissionsSeeder extends Seeder
                 $role = Role::create(['name' => $key]);
 
                 foreach ($roleAndPermissions as $permission) {
-                    Permission::create(['name' => $permission]);
+                    if (is_null(Permission::where('name', $permission)->first()))
+                        Permission::create(['name' => $permission]);
 
-                    if ($key !== 'admin') {
+                    if ($key !== 'super-admin')
                         $role->givePermissionTo($permission);
-                    }
                 }
             }
 
-            $role = Role::findByName('admin');
+            foreach ($roles as $role)
+                if (is_null(Role::where('name', $role)->first()))
+                    Role::create(['name' => $role]);
+
+            foreach ($permissions as $permission)
+                if (is_null(Permission::where('name', $permission)->first()))
+                    Permission::create(['name' => $permission]);
+
+            $role = Role::findByName('super-admin');
             $role->givePermissionTo(Permission::all());
         });
     }

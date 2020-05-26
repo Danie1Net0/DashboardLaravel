@@ -12,11 +12,21 @@ return [
     */
 
     'roles_and_permissions' => [
+        'super-admin' => [
+            'list-admins', 'create-admin', 'edit-admin', 'update-admin', 'delete-admin'
+        ],
         'admin' => [
+            'edit-profile',
             'list-users', 'create-user', 'edit-user', 'update-user', 'delete-user'
         ],
         'user' => [
             'edit-profile'
         ]
+    ],
+    'roles' => [
+        // 'other_role',
+    ],
+    'permissions' => [
+        // 'other_permission'
     ]
 ];
