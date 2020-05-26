@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -21,7 +22,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function all(int $paginate = null): LengthAwarePaginator
     {
-        return User::paginate($paginate);
+        return $this->queryByUserRole()->paginate($paginate);
     }
 
     /**
@@ -29,8 +30,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function filter(array $params, int $paginate = null): LengthAwarePaginator
     {
-        $query = User::query();
-        $query->where('id', '<>', Auth::id());
+        $query = $this->queryByUserRole();
 
         if (isset($params['search'])) {
             $query->where(function (Builder $query) use ($params) {
@@ -40,7 +40,9 @@ class UserRepository implements UserRepositoryInterface
                 if (strcasecmp($params['search'], 'Ativo') == 0 || strcasecmp($params['search'], 'Inativo') == 0)
                     $query->orWhere('active', strcasecmp($params['search'], 'Ativo') == 0);
 
-                if (strcasecmp($params['search'], 'Administrador') == 0 || strcasecmp($params['search'], 'Usuário') == 0)
+                if (strcasecmp($params['search'], 'Super-administrador') == 0 ||
+                    strcasecmp($params['search'], 'Administrador') == 0 ||
+                    strcasecmp($params['search'], 'Usuário') == 0)
                     $query->orWhereHas('roles', function (Builder $query) use ($params) {
                         $roleName = array_search(Str::ucfirst($params['search']), trans("role-names"));
                         $query->where('name', $roleName);
@@ -56,7 +58,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function find(array $where, array $orWhere = [], int $paginate = null): LengthAwarePaginator
     {
-        $query = User::query();
+        $query = $this->queryByUserRole();
         $where && $orWhere ? $query->where($where)->orWhere($orWhere)->get() : $query->where($where)->get();
 
         return $query->paginate($paginate ?? 5);
@@ -67,6 +69,37 @@ class UserRepository implements UserRepositoryInterface
      */
     public function findById(int $id): Model
     {
-        return User::findOrFail($id);
+        $query = $this->queryByUserRole();
+        $query->where('id', $id);
+
+        if (is_null($query->first()))
+            throw new ModelNotFoundException('Usuário não encontrado');
+
+
+        return $query->first();
+    }
+
+    /**
+     * Retorna construtor de busca baseado nas funções do usuário autenticado.
+     *
+     * @return Builder
+     */
+    private function queryByUserRole(): Builder
+    {
+        $query = User::query();
+
+        $query->where('id', '<>', Auth::id());
+
+        if (Auth::user()->hasRole('super-admin') && !Auth::user()->hasPermissionTo('list-super-admins'))
+            $query->whereHas('roles', function (Builder $query) {
+                $query->where('name', '<>', 'super-admin');
+            });
+
+        if (!Auth::user()->hasRole('super-admin'))
+            $query->whereHas('roles', function (Builder $query) {
+                $query->where('name','user');
+            });
+
+        return $query;
     }
 }

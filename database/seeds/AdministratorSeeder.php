@@ -23,6 +23,8 @@ class AdministratorSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
-        ])->assignRole('admin');
+        ])->assignRole('super-admin')->givePermissionTo([
+            'list-super-admins', 'create-super-admin', 'edit-super-admin', 'update-super-admin', 'delete-super-admin'
+        ]);
     }
 }

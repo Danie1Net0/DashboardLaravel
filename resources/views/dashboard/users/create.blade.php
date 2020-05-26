@@ -18,16 +18,14 @@
         <div class="row">
           @input(['cols' => 'col-md-12 col-lg-4', 'name' => 'name', 'label' => 'Nome'])
           @input(['cols' => 'col-md-12 col-lg-4', 'name' => 'email', 'label' => 'E-mail'])
-          @select(['cols' => 'col-md-12 col-lg-4', 'name' => 'role', 'label' => 'Função', 'options' => [
-            ['value' => 'admin', 'content' => 'Administrador'],
-            ['value' => 'user', 'content' => 'Usuário']
-          ]])
+          @select(['cols' => 'col-md-12 col-lg-4', 'name' => 'role', 'label' => 'Função',
+                   'options' => createUserRoleOptions()])
         </div>
 
         <div class="row">
           @input(['cols' => 'col-md-12 col-lg-6', 'name' => 'password', 'label' => 'Senha', 'type' => 'password'])
           @input(['cols' => 'col-md-12 col-lg-6', 'name' => 'password_confirmation', 'label' => 'Confirmação da senha',
-            'type' => 'password'])
+                  'type' => 'password'])
         </div>
       </div>
 

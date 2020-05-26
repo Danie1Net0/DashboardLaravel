@@ -29,10 +29,8 @@
         </div>
 
         <div class="row">
-          @select(['cols' => 'col-md-12 col-lg-6', 'name' => 'role', 'label' => 'Função', 'options' => [
-            ['value' => 'admin', 'content' => 'Administrador'],
-            ['value' => 'user', 'content' => 'Usuário']
-          ], 'value' => $user->roleName])
+          @select(['cols' => 'col-md-12 col-lg-6', 'name' => 'role', 'label' => 'Função',
+                   'options' => createUserRoleOptions(), 'value' => $user->roleName])
           @select(['cols' => 'col-md-12 col-lg-6', 'name' => 'active', 'label' => 'Status', 'options' => statusOptions(),
                    'value' => $user->active])
         </div>

@@ -33,7 +33,7 @@ class CreateUserRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role' => [Rule::requiredIf(Auth::user()->hasRole('admin')), 'exists:roles,name']
+            'role' => [Rule::requiredIf(Auth::check() && Auth::user()->hasRole('super-admin|admin')), 'exists:roles,name']
         ];
     }
 }

@@ -10,6 +10,7 @@ return [
     |
     */
 
+    'super-admin' => 'Super-administrador',
     'admin' => 'Administrador',
     'user' => 'Usuário'
 ];

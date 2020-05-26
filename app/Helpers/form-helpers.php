@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
 /**
  * Retorna o nome do campo, formatando-o para validação, caso seja um array.
  * Exemplo:
@@ -61,4 +63,23 @@ function statusOptions(): array
         ['value' => '1', 'content' => 'Ativo'],
         ['value' => '0', 'content' => 'Inativo'],
     ];
+}
+
+/**
+ * Retorna opções de "Roles" para cadastro de usuários.
+ *
+ * @return array
+ */
+function createUserRoleOptions(): array
+{
+    $roles =  [['value' => 'user', 'content' => 'Usuário']];
+
+    if (Auth::user()->hasRole('super-admin')) {
+        array_push($roles, ['value' => 'admin', 'content' => 'Administrador']);
+
+        if (Auth::user()->hasPermissionTo('create-super-admin'))
+            array_push($roles, ['value' => 'super-admin', 'content' => 'Super-administrador']);
+    }
+
+    return $roles;
 }

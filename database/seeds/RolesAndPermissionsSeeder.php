@@ -38,6 +38,9 @@ class RolesAndPermissionsSeeder extends Seeder
                 }
             }
 
+            $role = Role::findByName('super-admin');
+            $role->givePermissionTo(Permission::all());
+
             foreach ($roles as $role)
                 if (is_null(Role::where('name', $role)->first()))
                     Role::create(['name' => $role]);
@@ -45,9 +48,6 @@ class RolesAndPermissionsSeeder extends Seeder
             foreach ($permissions as $permission)
                 if (is_null(Permission::where('name', $permission)->first()))
                     Permission::create(['name' => $permission]);
-
-            $role = Role::findByName('super-admin');
-            $role->givePermissionTo(Permission::all());
         });
     }
 }

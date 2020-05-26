@@ -8,6 +8,7 @@ use App\Services\Users\Interfaces\UserServiceInterface;
 use App\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -100,7 +101,7 @@ class UserService implements UserServiceInterface
     public function update(array $data, int $id): Model
     {
         return DB::transaction(function () use ($data, $id) {
-            $user = $this->userRepository->findById($id);
+            $user = Auth::id() === $id ? Auth::user() : $this->userRepository->findById($id);
 
             if (isset($data['avatar'])) {
                 $pathAvatar = gettype($data['avatar']) != 'string' ?
@@ -128,7 +129,12 @@ class UserService implements UserServiceInterface
     public function delete(int $id): bool
     {
         return DB::transaction(function () use ($id) {
-            return User::destroy($id);
+            $user = $this->userRepository->findById($id);
+
+            if ($user->avatar != 'public/user_avatar/default.png')
+                Storage::delete($user->avatar);
+
+            return $user->delete();
         });
     }
 
@@ -149,7 +155,7 @@ class UserService implements UserServiceInterface
     public function updatePassword(array $data, int $id): User
     {
         return DB::transaction(function () use ($data, $id) {
-            $user = $this->userRepository->findById($id);
+            $user = Auth::id() === $id ? Auth::user() : $this->userRepository->findById($id);
             $user->update(['password' => Hash::make($data['password'])]);
 
             return $user;

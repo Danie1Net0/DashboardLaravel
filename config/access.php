@@ -27,6 +27,6 @@ return [
         // 'other_role',
     ],
     'permissions' => [
-        // 'other_permission'
+        'list-super-admins', 'create-super-admin', 'edit-super-admin', 'update-super-admin', 'delete-super-admin'
     ]
 ];

@@ -10,6 +10,7 @@ use App\Services\Users\Interfaces\UserServiceInterface;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
@@ -29,7 +30,7 @@ class UserController extends Controller
      */
     public function __construct(UserServiceInterface $userService)
     {
-        $this->middleware(['auth', 'verified', 'role:admin']);
+        $this->middleware(['auth', 'verified', 'role:super-admin|admin']);
         $this->middleware(['permission:list-users'])->only('index');
         $this->middleware(['permission:create-user'])->only('store');
         $this->middleware(['permission:edit-user'])->only('edit');
