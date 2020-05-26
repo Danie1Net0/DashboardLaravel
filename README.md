@@ -20,7 +20,7 @@ Neste projeto foram utilizadas as seguintes linguagens, frameworks e bibliotecas
 - [SweetAlert2](https://sweetalert2.github.io/)
 - [Vali Admin](https://pratikborsadiya.in/vali-admin)
 
-# Funcionamento
+## Funcionamento
 
 Confira a [wiki](https://github.com/Danie1Net0/DashboardLaravel/wiki) para mais detalhes sobre o funcionamento do projeto.
 
