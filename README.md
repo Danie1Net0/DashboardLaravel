@@ -7,73 +7,156 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## About Laravel
+## Tecnologias utilizadas
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Neste projeto foram utilizadas as seguintes linguagens, frameworks e bibliotecas:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [Laravel](https://laravel.com/) - Versão 7.0
+- [MariaDB](https://mariadb.org/) - Versão 10.3
+- [Laravel Permission](https://docs.spatie.be/laravel-permission/v3/introduction/)
+- [Bootstrap](https://getbootstrap.com/) - Versão 4.4.1
+- [jQuery](https://jquery.com/) - Versão 3.4.1
+- [jQuery Mask Plugin](https://igorescobar.github.io/jQuery-Mask-Plugin/)
+- [SweetAlert2](https://sweetalert2.github.io/)
+- [Vali Admin](https://pratikborsadiya.in/vali-admin)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+# Funcionamento
 
-## Learning Laravel
+Confira a [wiki](https://github.com/Danie1Net0/DashboardLaravel/wiki) para mais detalhes sobre o funcionamento do projeto.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Executando o projeto localmente
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Para executar o projeto localmente, as seguintes dependências devem estar instaladas:
 
-## Laravel Sponsors
+- PHP 7.4
+- MariaDB ou MySQL
+- Composer
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+A partir de uma instância do terminal aberta, execute os seguintes passos:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
-- [云软科技](http://www.yunruan.ltd/)
+1. Faça o download ou clone o projeto:
+```
+$ git clone https://github.com/Danie1Net0/DashboardLaravel.git
+```
 
-## Contributing
+2. Entre no diretório do projeto clonado:
+```
+$ cd DashboardLaravel
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3. Instale as dependências do Laravel via Composer:
+```
+$ composer install
+```
 
-## Code of Conduct
+4. Crie o arquivo **.env**: 
+```
+$ cp .env.example .env
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+5. Gere a chave da aplicação:
+```
+$ php artisan key:generate
+```
 
-## Security Vulnerabilities
+6. Crie um banco de dados e altere o seguinte trecho do arquivo **.env** com os parâmetros correspondentes: 
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE="nome do banco criado"
+DB_USERNAME="nome de usuario do banco"
+DB_PASSWORD="senha do banco"
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+7. Ainda no arquivo *.env*, altere o seguinte trecho com os parâmetros do seu servidor de e-mail (utilizado para enviar as notificações):
+   
+> Os parâmetros **MAIL_MAILER**, **MAIL_HOST** e **MAIL_PORT** podem ser substituídos por quaisquer outros, o SMTP do GMail pela porta 587 é apenas um exemplo.                                                                                                                                            
+```
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME="seu endereço de e-mail"
+MAIL_PASSWORD="senha do seu e-mail"
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="endereço de e-mail que aparecerá nas mensagens"
+MAIL_FROM_NAME="Nome do rementente que aparecerá nas mensagens"
+```
 
-## License
+8. Execute as migrações e "semeie" o banco de dados: 
+```
+$ php artisan migrate --seed
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+9. Crie o link de armazenamento de arquivos públicos: 
+```
+$ php artisan storage:link
+```
+
+10. Inicie a aplicação:
+```
+$ php artisan serve
+```
+
+> Por padrão a porta utilizada é a 8000. Se esta já estiver em uso por outra aplicação, é possível alterar a porta padrão com o argumento **--port**:
+```
+php artisan serve --port=3000
+```
+
+## Executando o projeto via Docker:
+
+A partir de uma instância do terminal aberta, execute os seguintes passos:
+
+1. Faça o download ou clone o projeto:
+```
+$ git clone https://github.com/Danie1Net0/DashboardLaravel.git
+```
+
+2. Entre no diretório do projeto clonado:
+```
+$ cd DashboardLaravel
+```
+
+3. Crie o arquivo **.env**: 
+```
+$ cp .env.example .env
+```
+
+4. Altere as seguintes informações sobre o banco de dados no arquivo **.env** **(NÃO É NECESSÁRIO CRIAR O BANCO DE DADOS)**:
+```
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE="um nome para o banco de dados"
+DB_USERNAME="um nome de usuário para o banco de dados"
+DB_PASSWORD="um senha para o banco de dados"
+```
+
+5. Execute o arquivo **configure-docker.sh** (esse arquivo fará todo o processo de criação dos contâiners e
+ implantação do projeto):
+```
+$ ./configure-docker.sh
+```
+
+6. Crie o link de armazenamento de arquivos públicos: 
+```
+$ docker exec -it laravel_app php artisan storage:link
+```
+
+> Será necessário executar os comandos acima (passos 5 e 6) como super-usuário, caso o Docker não pertença ao grupo 
+> de administradores do sistema.
+
+
+> É importante conferir as permissões de escrita do diretório para que o processo ocorra corretamente.
+
+> A aplicação será executada, por padrão, na porta 8000, mas isso pode ser falcimente alterado através do seguinte 
+> trecho do arquivo **.env**:
+```
+DOCKER_HTTP_PORT=8000
+```
+
+## Informação importante
+
+Um administrador padrão é gerado a partir do seeder **database/seeds/AdministratorSeeder**:
+> **E-mail:** admin@admin.com <br>
+> **Senha:** password
