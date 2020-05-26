@@ -49,16 +49,6 @@
           </li>
         @endif
       @endforeach
-
-      <li class="treeview">
-        <form action="{{ route('logout') }}" method="POST">
-          @csrf
-
-          <button class="btn btn-block app-menu__item">
-            <i class="app-menu__icon fa fa-sign-out"></i> Sair
-          </button>
-        </form>
-      </li>
     </ul>
   @endif
 </aside>
